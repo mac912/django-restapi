@@ -7,6 +7,10 @@ class EmployeSerializer(serializers.Serializer):
     employid = serializers.CharField(max_length=10)
     phone = serializers.CharField(max_length=10)
 
+    def create(self, validated_data):
+        print("create method called")
+        return EmployeDetails.objects.create(**validated_data)
+
 class UserSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=30)
     email = serializers.EmailField()
