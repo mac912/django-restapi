@@ -16,12 +16,14 @@ def index(request):
 
     elif request.method == 'POST':
         jsonData = JSONParser().parse(request)
+        print(jsonData)
         serializer = EmployeSerializer(data = jsonData)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, safe=False)
         else:
             return JsonResponse(serializer.errors, safe=False)
+        #return JsonResponse({"Message":"Add Employee"}, safe=False)
 
 def UserListView(request):
     Userobj = User.objects.all()
