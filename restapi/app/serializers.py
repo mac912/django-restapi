@@ -1,26 +1,15 @@
 from rest_framework import serializers
 from .models import EmployeDetails
+from django.contrib.auth.models import User
 
-class EmployeSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=30)
-    email = serializers.EmailField()
-    employid = serializers.CharField(max_length=10)
-    phone = serializers.CharField(max_length=10)
-
-    def create(self, validated_data):
-        print("create method called")
-        return EmployeDetails.objects.create(**validated_data)
-    
-    def update(self, instance, validated_data):
-        newEmployee = EmployeDetails(**validated_data)
-        newEmployee.id = instance.id
-        newEmployee.save()
-        return newEmployee
+class EmployeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmployeDetails
+        fields='__all__'
 
 
-
-class UserSerializer(serializers.Serializer):
-    username = serializers.CharField(max_length=30)
-    email = serializers.EmailField()
-    password = serializers.CharField()
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
     
